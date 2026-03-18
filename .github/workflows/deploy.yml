@@ -1,0 +1,40 @@
+name: Deploy RAG API
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Build Docker image
+        run: docker build -t rag-api .
+```
+
+---
+
+### `docs/sample.txt` (put a placeholder so the folder exists on GitHub)
+```
+This is a sample document for the RAG Knowledge Assistant.
+
+Retrieval-Augmented Generation (RAG) is a technique that combines information retrieval
+with large language model generation. It retrieves relevant context from a knowledge base
+and uses it to ground the LLM response, reducing hallucination.
+
+Key components:
+- Document ingestion and chunking
+- Vector embeddings for semantic search
+- Top-k retrieval using cosine similarity
+- Grounded prompt construction
+- LLM generation with retrieved context
